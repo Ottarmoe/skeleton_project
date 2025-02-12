@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <time.h>
+#include "timer.h"
 #include "driver/elevio.h"
 
 
@@ -51,3 +51,7 @@ int main(){
 }
 */
 
+int main(){
+    testClock();
+    return 0;
+}

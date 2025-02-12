@@ -1,0 +1,3 @@
+void DOORS_OPEN();
+void DOORS_CLOSE();
+bool DOORS_ISOPEN();

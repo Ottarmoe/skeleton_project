@@ -1,8 +1,5 @@
-typedef uint32_t timespan;
+typedef unsigned int timespan;
 
-struct Timer{
-    timespan targetTime;
-    void set(timespan duration);
-    timespan getTimeLeft();
-    bool isDone();
-}
+timespan getTime();
+
+void testClock();
