@@ -1,8 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
-#include "timer.h"
+
 #include "driver/elevio.h"
+#include "timer.h"
+#include "sequences.h"
+
+int main(){
+    testOrderState();  
+    return 0;
+}
+
 
 
 /*
@@ -50,8 +58,3 @@ int main(){
     return 0;
 }
 */
-
-int main(){
-    testClock();
-    return 0;
-}
