@@ -70,17 +70,18 @@ void testOrderState(){
                 }
             }
             else if(c == 'c'){
-                int f;
+                floor f;
                 scanf("%i", &f);
                 ORDSTAT_CLOSE(f);
             }
             else if(c == 'o'){
-                int f, b;
+                floor f;
+                int b;
                 scanf("%i %i", &f, &b);
                 ORDSTAT_OPEN(f, b);
             }
             else if(c == 'q'){
-                int f;
+                floor f;
                 scanf("%i", &f);
                 ORDSTAT_DOINPUTS(f);
             }

@@ -1,5 +1,3 @@
-#ifndef DOORS
-#define DOORS
 
 #include <stdbool.h>
 
@@ -13,5 +11,3 @@ void DOORS_UPDATE();
 #define DOORS_cycleDelay 3000;
 //opens and closes, must wait DOORS_cycleDelay before closing. May be overruled by DOORS_OPEN();
 void DOORS_CYCLE();
-
-#endif

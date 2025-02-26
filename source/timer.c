@@ -1,8 +1,13 @@
 #include <time.h>
+#include <sys/time.h>
 #include "timer.h"
 
 timespan getTime(){
-    return (clock()*1000)/CLOCKS_PER_SEC;
+    //return (clock()*1000)/CLOCKS_PER_SEC;
+    struct timeval tp;
+
+	gettimeofday(&tp, NULL);
+	return tp.tv_sec * 1000 + tp.tv_usec / 1000;
 }
 
 //hard to make work, please fix

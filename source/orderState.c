@@ -9,14 +9,14 @@ void ORDSTAT_DOINPUTS(bool set){
     doInputs = set;
 }
 
-bool ORDGET(int f, ButtonType i){
+bool ORDGET(floor f, ButtonType i){
     return ordStatus[N_BUTTONS*f+i];
 }
-int ORDINDEX(int f, ButtonType i){
+int ORDINDEX(floor f, ButtonType i){
     return ordIndecies[N_BUTTONS*f+i];
 }
 
-void ORDSTAT_CLOSE(int f){
+void ORDSTAT_CLOSE(floor f){
     for(int b = 0; b < N_BUTTONS; ++b){
         ordStatus[f*N_BUTTONS+b] = 0;
         elevio_buttonLamp(f, b, 0);
@@ -27,7 +27,7 @@ void ORDSTAT_CLEAR(){
         ORDSTAT_CLOSE(f);
     nextindex = 0;
 }
-void ORDSTAT_OPEN(int f, ButtonType i){
+void ORDSTAT_OPEN(floor f, ButtonType i){
     if(ORDGET(f, i)) return;
     ordStatus[N_BUTTONS*f+i] = 1;
     ordIndecies[N_BUTTONS*f+i] = nextindex++;
@@ -36,15 +36,15 @@ void ORDSTAT_OPEN(int f, ButtonType i){
 
 void ORDSTAT_UPDATE(){
     if(doInputs)
-        for(int f = 0; f<N_FLOORS; ++f)
+        for(floor f = 0; f<N_FLOORS; ++f)
             for(int b = 0; b<N_BUTTONS; ++b)
                 if(elevio_callButton(f, b)) ORDSTAT_OPEN(f, b);
 }
 
 int ORDSTAT_OLDEST_CAB(){
-    int oldest = NO_FLOOR;
+    floor oldest = NO_FLOOR;
     int ind = INT_MAX;
-    for(int f = 0; f<N_FLOORS; ++f)
+    for(floor f = 0; f<N_FLOORS; ++f)
         if(ORDGET(f, BUTTON_CAB))
         if(ORDINDEX(f, BUTTON_CAB) < ind){
             oldest = f;
@@ -53,9 +53,9 @@ int ORDSTAT_OLDEST_CAB(){
     return oldest;
 }
 int ORDSTAT_OLDEST_HALL(){
-    int oldest = NO_FLOOR;
+    floor oldest = NO_FLOOR;
     int ind = INT_MAX;
-    for(int f = 0; f<N_FLOORS; ++f){
+    for(floor f = 0; f<N_FLOORS; ++f){
         if(ORDGET(f, BUTTON_HALL_UP))
         if(ORDINDEX(f, BUTTON_HALL_UP) < ind){
             oldest = f;
