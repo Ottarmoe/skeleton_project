@@ -6,6 +6,8 @@
 void DOORS_OPEN();
 void DOORS_CLOSE();
 bool DOORS_AREOPEN();
+
+//advances timers and state
 void DOORS_UPDATE();
 
 #define DOORS_cycleDelay 3000;

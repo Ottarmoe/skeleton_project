@@ -39,7 +39,7 @@ void setMotion(MotorDirection dirn){
 
 
 void CONTROL_UPDATE(){
-    //stop button
+    //stop button exception
     if(elevio_stopButton()){
         setMotion(DIRN_STOP);
         stopped = 1;
@@ -61,9 +61,10 @@ void CONTROL_UPDATE(){
         ORDSTAT_DOINPUTS(1);
         return;
     }
+    //stop delay exception
     if(getTime() < stoppedUntil) return;
 
-
+    //floor counting
     floor sense = elevio_floorSensor();
     if(sense != -1) registerFloor(sense);
     else{
@@ -73,13 +74,13 @@ void CONTROL_UPDATE(){
         onFloor = 0;
     }
 
-    //doors
+    //doors open exception
     if(DOORS_AREOPEN()){
         if(sense != -1) ORDSTAT_CLOSE(sense);
         return;
     }
 
-    //home
+    //home exception
     if(homing){
         if(sense == -1){
             setMotion(DIRN_DOWN);
@@ -90,7 +91,7 @@ void CONTROL_UPDATE(){
         homing = 0;
     }
 
-    //if at floor
+    //ordered floor exception
     if(sense != -1){
         bool shouldCycle = ORDGET(sense, BUTTON_CAB);
         if(motiondir != DIRN_UP) 
@@ -107,13 +108,6 @@ void CONTROL_UPDATE(){
     }
 
     //control algorithm
-
-    /*floor target = ORDSTAT_OLDEST_CAB();
-    if(target == NO_FLOOR) target = ORDSTAT_OLDEST_HALL();
-    if(target == NO_FLOOR){
-        setMotion(DIRN_STOP);
-        return;
-    }*/
     floor target = NO_FLOOR;
     if(directionPreference == 0){
         for(floor f = N_FLOORS-1; f>=0; --f){
@@ -147,7 +141,7 @@ void CONTROL_UPDATE(){
 }
 
 void CONTROL_UPDATE_ARC(){
-    //stop button
+    //stop button exception
     if(elevio_stopButton()){
         setMotion(DIRN_STOP);
         stopped = 1;
@@ -169,9 +163,10 @@ void CONTROL_UPDATE_ARC(){
         ORDSTAT_DOINPUTS(1);
         return;
     }
+    //stop delay exception
     if(getTime() < stoppedUntil) return;
 
-
+    //floor counting
     floor sense = elevio_floorSensor();
     if(sense != -1) registerFloor(sense);
     else{
@@ -181,13 +176,13 @@ void CONTROL_UPDATE_ARC(){
         onFloor = 0;
     }
 
-    //doors
+    //doors open exception
     if(DOORS_AREOPEN()){
         if(sense != -1) ORDSTAT_CLOSE(sense);
         return;
     }
 
-    //home
+    //home exception
     if(homing){
         if(sense == -1){
             setMotion(DIRN_DOWN);
@@ -198,7 +193,7 @@ void CONTROL_UPDATE_ARC(){
         homing = 0;
     }
 
-    //if at floor
+    //at ordered floor exception
     if(sense != -1){
         bool shouldCycle = ORDGET(sense, BUTTON_CAB);
         if(motiondir != DIRN_UP) 
@@ -215,7 +210,6 @@ void CONTROL_UPDATE_ARC(){
     }
 
     //control algorithm
-
     floor target = ORDSTAT_OLDEST_CAB();
     if(target == NO_FLOOR) target = ORDSTAT_OLDEST_HALL();
     if(target == NO_FLOOR){
